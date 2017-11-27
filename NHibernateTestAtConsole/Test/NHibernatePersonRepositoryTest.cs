@@ -1,11 +1,12 @@
 ﻿using System.IO;
+using NHibernate.GettingStarted.Dao;
 using NHibernate.Tool.hbm2ddl;
 using NHibernateTestAtConsole.DAO;
 using NHibernateTestAtConsole.Entities;
 using NHibernateTestAtConsole.Model;
 using NUnit.Framework;
 
-namespace NHibernate.GettingStarted.Dao.Test
+namespace NHibernateTestAtConsole.Test
 {
   [TestFixture]
   public class NHibernatePersonRepositoryTest

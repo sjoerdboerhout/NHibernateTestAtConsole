@@ -82,7 +82,6 @@
     <Compile Include="Entities\PropertyValue.cs" />
     <Compile Include="Entities\Property.cs" />
     <Compile Include="Entities\User.cs" />
-    <Compile Include="Entities\Device.cs" />
     <Compile Include="Model\IUserRepository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
