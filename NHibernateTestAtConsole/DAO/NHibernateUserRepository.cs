@@ -1,9 +1,9 @@
 ﻿using System;
-using NHibernateTestAtConsole.DAO;
+using NHibernate;
 using NHibernateTestAtConsole.Entities;
 using NHibernateTestAtConsole.Model;
 
-namespace NHibernate.GettingStarted.Dao
+namespace NHibernateTestAtConsole.DAO
 {
   public class NHibernatePersonRepository : IUserRepository
   {

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
+using NHibernateTestAtConsole.DAO;
 using NHibernateTestAtConsole.Entities;
 
 namespace NHibernateTestAtConsole
@@ -18,18 +19,14 @@ namespace NHibernateTestAtConsole
 
     static void Main(string[] args)
     {
-      List<User> Users = new List<User>();
-      List<Device> Devices = new List<Device>();
+      //List<User> Users = new List<User>();
 
-      // create our NHibernate session factory
-      var sessionFactory = CreateSessionFactory(DatabaseFilePath);
-
-      using (var session = sessionFactory.OpenSession())
+      using (ISession session = NHibernateHelper.OpenSession())
       {
         if (!session.Transaction.IsActive)
         {
           // populate the database
-          using (var transaction = session.BeginTransaction())
+          using (ITransaction transaction = session.BeginTransaction())
           {
             Console.WriteLine("Ready to execute a query!");
 
@@ -52,25 +49,18 @@ namespace NHibernateTestAtConsole
               LastModified = DateTime.Now,
               Value = "Z"
             });
-            session.SaveOrUpdate(property);
-            Console.WriteLine("Save property: " + property);
+            //session.SaveOrUpdate(property);
+            //Console.WriteLine("Save property: " + property);
 
             User user = new User()
             {
+              FirstName = "Sjoerd",
+              LastName = "Boerhout",
               LastModified = DateTime.Now
             };
 
             session.SaveOrUpdate(user);
             Console.WriteLine("Save user: " + user);
-
-
-            Device device = new Device()
-            {
-              Name = "X",
-              LastModified = DateTime.Now
-            };
-            session.SaveOrUpdate(device);
-            Console.WriteLine("Save device: " + device);
 
 
             transaction.Commit();
@@ -88,14 +78,6 @@ namespace NHibernateTestAtConsole
             foreach (var user in users)
             {
               Console.WriteLine("User: {0}", user);
-            }
-
-            var devices = (from device in session.Query<Device>()
-                           select device)
-              .OrderBy(x => x.LastModified).ToList();
-            foreach (var device in devices)
-            {
-              Console.WriteLine("Device: {0}", device);
             }
 
             var properties = (from property in session.Query<Property>()

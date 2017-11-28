@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using NHibernate.GettingStarted.Dao;
 using NHibernate.Tool.hbm2ddl;
 using NHibernateTestAtConsole.DAO;
 using NHibernateTestAtConsole.Entities;

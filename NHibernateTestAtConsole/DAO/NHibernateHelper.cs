@@ -3,6 +3,7 @@ using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
 using NHibernate.Mapping.ByCode;
+using NHibernate.Tool.hbm2ddl;
 
 namespace NHibernateTestAtConsole.DAO
 {
@@ -26,6 +27,9 @@ namespace NHibernateTestAtConsole.DAO
         {
           //Create the session factory
           _sessionFactory = Configuration.BuildSessionFactory();
+
+          new SchemaExport(_configuration)
+          .Create(true, true);
         }
         return _sessionFactory;
       }
