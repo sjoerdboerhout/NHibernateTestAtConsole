@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NHibernateTestAtConsole.Entities
 {
   public class Property
   {
+    private string _currVal = "";
+
     public virtual Guid Guid { get; protected set; }
 
     public virtual string Name { get; set; }
 
     public virtual DateTime LastModified { get; set; }
 
-    public virtual IList<PropertyValue> Values { get; set; } = new List<PropertyValue>();
+    public virtual ICollection<PropertyValue> Values { get; set; } = new List<PropertyValue>();
 
     public virtual string Value
     {
@@ -23,8 +23,10 @@ namespace NHibernateTestAtConsole.Entities
         if (Values?.Count > 0)
           return Values.OrderBy(s => s.LastModified).First().Value;
 
-        return "";
+        return _currVal;
       }
+
+      set { _currVal = value; }
     }
 
     public virtual void AddValue(PropertyValue propertyValue)

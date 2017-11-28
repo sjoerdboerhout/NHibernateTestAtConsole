@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Reflection;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
@@ -80,6 +81,8 @@ namespace NHibernateTestAtConsole.DAO
 
       //Add the person mapping to the model mapper
       mapper.AddMappings(new List<System.Type> {typeof(UserMap)});
+      mapper.AddMappings(new List<System.Type> { typeof(PropertyMap) });
+      mapper.AddMappings(new List<System.Type> { typeof(PropertyValueMap) });
 
       //Create and return a HbmMapping of the model mapping in code
       return mapper.CompileMappingForAllExplicitlyAddedEntities();

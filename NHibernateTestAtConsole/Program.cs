@@ -30,6 +30,15 @@ namespace NHibernateTestAtConsole
           {
             Console.WriteLine("Ready to execute a query!");
 
+            User user = new User()
+            {
+              FirstName = "Sjoerd",
+              LastName = "Boerhout",
+              LastModified = DateTime.Now
+            };
+            session.SaveOrUpdate(user);
+            Console.WriteLine("Save user: " + user);
+
             Property property = new Property()
             {
               Name = "X",
@@ -38,29 +47,23 @@ namespace NHibernateTestAtConsole
             property.AddValue(new PropertyValue()
             {
               Parent = property.Guid,
-              Property = property.Guid,
+              Property = property,
               LastModified = DateTime.Now.AddMinutes(-1),
               Value = "Y"
             });
             property.AddValue(new PropertyValue()
             {
               Parent = property.Guid,
-              Property = property.Guid,
+              Property = property,
               LastModified = DateTime.Now,
               Value = "Z"
             });
-            //session.SaveOrUpdate(property);
-            //Console.WriteLine("Save property: " + property);
+            
+            session.SaveOrUpdate(property);
+            Console.WriteLine("Save property: " + property);
 
-            User user = new User()
-            {
-              FirstName = "Sjoerd",
-              LastName = "Boerhout",
-              LastModified = DateTime.Now
-            };
 
-            session.SaveOrUpdate(user);
-            Console.WriteLine("Save user: " + user);
+
 
 
             transaction.Commit();
