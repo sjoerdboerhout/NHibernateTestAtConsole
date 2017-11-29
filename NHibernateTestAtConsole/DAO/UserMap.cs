@@ -19,16 +19,30 @@ namespace NHibernateTestAtConsole.DAO
 
       //Property(x => x.FirstName, y => y.Length(SqlClientDriver.MaxSizeForLengthLimitedString + 1) );
       Property(x => x.FirstName, m =>
-        {
-          m.Length(SqlClientDriver.MaxSizeForLengthLimitedString + 1);
-          m.Column("username");
-          //m.NotNullable(true);
-
-        });
+      {
+        m.Length(SqlClientDriver.MaxSizeForLengthLimitedString + 1);
+        m.Column("username");
+        //m.NotNullable(true);
+      });
 
       Property(x => x.LastName);
 
       Property(x => x.LastModified);
+
+
+      //Bag(x => x.Properties,
+      //  m =>
+      //  {
+      //    m.Table("user_properties");
+      //    m.Key(k => k.Column("property_id"));
+      //    m.Inverse(true);
+      //    m.Cascade(Cascade.None);
+      //  },
+      //  col => col.ManyToMany(m =>
+      //  {
+      //    m.Columns(x => x.Name("user_id"));
+      //    m.Lazy(LazyRelation.Proxy);
+      //  }));
     }
   }
 }

@@ -28,9 +28,9 @@ namespace NHibernateTestAtConsole.DAO
 
       Property(x => x.LastModified);
 
-      //Property(x => x.Value);
+      Property(x => x.Value);
 
-      Bag(x => x.Values, c =>
+      Set(x => x.Values, c =>
         {
           c.Key(k =>
           {
@@ -38,34 +38,12 @@ namespace NHibernateTestAtConsole.DAO
           });
           c.Cascade(Cascade.Persist);
           c.Lazy(CollectionLazy.Lazy);
+          c.OrderBy("LastModified desc");
         }, r =>
         {
           r.OneToMany();
         }
       );
-
-      //Set(x => x.Values, m =>
-      //{
-      //  m.Inverse(true);
-      //  m.Cascade(Cascade.All);
-      //  m.Lazy(CollectionLazy.Lazy);
-      //  m.Key(k => k.Column("property_id"));
-      //  m.Type(typeof(PropertyValue));
-      //});
-
-      //Set(x => x.Values, c =>
-      //{
-      //  c.Key(k => k.Column("property_id"));
-      //  c.Cascade(NHibernate.Mapping.ByCode.Cascade.Persist);
-      //  c.Lazy(CollectionLazy.NoLazy);
-      //}, r =>
-      //{
-      //  r.Component(c =>
-      //  {
-      //    c.Parent(x => x.Parent);
-      //    c.Property(x => x.Property);
-      //  });
-      //});
     }
   }
 }

@@ -19,7 +19,9 @@ namespace PersonCar_Set_ManyToOne
     public PersonSetMap()
     {
       Id(x => x.Id, m => m.Generator(Generators.Identity));
+
       Property(x => x.Name);
+
       Set(x => x.Cars, c =>
         {
           c.Key(k => { k.Column("PersonId"); });

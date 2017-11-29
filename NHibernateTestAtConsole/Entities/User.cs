@@ -16,14 +16,23 @@ namespace NHibernateTestAtConsole.Entities
 
     public virtual DateTime LastModified { get; set; }
 
-    //public virtual List<Property> Properties { get; set; } = new List<Property>();
+    public virtual List<Property> Properties { get; set; } = new List<Property>();
 
-    //public virtual Property AddProperty(Property property)
-    //{
-    //  Properties.Add(property);
-    //  return property;
-    //}
+    public virtual Property AddProperty(Property property)
+    {
+      Properties.Add(property);
+      return property;
+    }
 
+    public override string ToString()
+    {
+      return string.Format("\n-UUID: {0}\n-Name: {1} {2}\n-Nr of properties: {3}\n-Last modified: {4}\n",
+        Guid,
+        FirstName,
+        LastName,
+        Properties.Count,
+        LastModified);
+    }
     //public override string ToString()
     //{
     //  return string.Format("\n-UUID: {0}\n-Last modified: {1}\n-Nr of properties: {2}\n",
@@ -32,13 +41,13 @@ namespace NHibernateTestAtConsole.Entities
     //                        Properties.Count);
     //}
 
-    public override string ToString()
-    {
-      return string.Format("\n-UUID: {0}\n-Name: {1} {2}\n-Last modified: {3}\n",
-        Guid,
-        FirstName,
-        LastName,
-        LastModified);
-    }
+    //public override string ToString()
+    //{
+    //  return string.Format("\n-UUID: {0}\n-Name: {1} {2}\n-Last modified: {3}\n",
+    //    Guid,
+    //    FirstName,
+    //    LastName,
+    //    LastModified);
+    //}
   }
 }

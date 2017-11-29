@@ -29,12 +29,12 @@ namespace NHibernateTestAtConsole.DAO
       });
 
 
-      //Property(x => x.Value, map =>
-      //{
-      //  map.Length(SqlClientDriver.MaxSizeForLengthLimitedString + 1);
-      //  map.Column("value");
-      //  //m.NotNullable(true);
-      //});
+      Property(x => x.Value, map =>
+      {
+        map.Length(SqlClientDriver.MaxSizeForLengthLimitedString + 1);
+        map.Column("value");
+        //m.NotNullable(true);
+      });
 
     }
   }

@@ -20,10 +20,13 @@ namespace NHibernateTestAtConsole.Entities
     {
       get
       {
-        if (Values?.Count > 0)
-          return Values.OrderBy(s => s.LastModified).First().Value;
+        if (_currVal.Length > 0)
+          return _currVal;
 
-        return _currVal;
+        if (Values?.Count > 0)
+          return Values.OrderByDescending(s => s.LastModified).First().Value;
+
+        return "";
       }
 
       set { _currVal = value; }
