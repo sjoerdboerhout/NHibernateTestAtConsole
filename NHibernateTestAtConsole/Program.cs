@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NHibernate;
 using NHibernate.Cfg;
+using NHibernate.Linq;
 using NHibernate.Tool.hbm2ddl;
 using NHibernateTestAtConsole.DAO;
 using NHibernateTestAtConsole.Entities;
