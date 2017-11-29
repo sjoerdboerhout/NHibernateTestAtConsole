@@ -44,6 +44,14 @@ namespace NHibernateTestAtConsole.DAO
           r.OneToMany();
         }
       );
+
+      Bag(x => x.Users, collectionMapping =>
+      {
+        collectionMapping.Table("user_properties");
+        collectionMapping.Cascade(Cascade.None);
+        collectionMapping.Key(k => k.Column("user_id"));
+      },
+                map => map.ManyToMany(p => p.Column("property_id")));
     }
   }
 }

@@ -37,6 +37,9 @@ namespace NHibernateTestAtConsole.Entities
       Values?.Add(propertyValue);
     }
 
+    public virtual ICollection<User> Users { get; set; } = new List<User>();
+
+
     public override string ToString()
     {
       string values = "";
