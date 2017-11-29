@@ -44,9 +44,9 @@ namespace NHibernateTestAtConsole.DAO
           bag.Table("user_properties");
           bag.Cascade(Cascade.None);
           bag.Lazy(CollectionLazy.NoLazy);
-          bag.Key(k => k.Column("user_id"));
+          bag.Key(k => k.Column("property_id"));
         },
-        t => t.ManyToMany(c => { c.Column("property_id"); }));
+        t => t.ManyToMany(c => { c.Column("user_id"); }));
 
       //Bag(x => x.Users, collectionMapping =>
       //{

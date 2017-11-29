@@ -51,6 +51,7 @@ namespace NHibernateTestAtConsole
               Value = "Z"
             });
 
+            user.Properties.Add(property);
             session.SaveOrUpdate(property);
             Console.WriteLine("Save property: " + property);
 
@@ -68,7 +69,7 @@ namespace NHibernateTestAtConsole
 
             foreach (var user in users)
             {
-              Console.WriteLine("User: {0}", user);
+              Console.WriteLine("User: {0}\n\n", user);
             }
 
             var properties = (from property in session.Query<Property>()
@@ -76,7 +77,7 @@ namespace NHibernateTestAtConsole
               .OrderBy(x => x.Name).ToList();
             foreach (var property in properties)
             {
-              Console.WriteLine("Property: {0}", property);
+              Console.WriteLine("Property: {0}\n\n", property);
             }
 
           }

@@ -26,12 +26,21 @@ namespace NHibernateTestAtConsole.Entities
 
     public override string ToString()
     {
-      return string.Format("\n-UUID: {0}\n-Name: {1} {2}\n-Nr of properties: {3}\n-Last modified: {4}\n",
+      string properties = "";
+      foreach (var property in Properties)
+      {
+        properties += "-- " + property + "\n";
+      }
+
+      properties = properties.Trim();
+
+      return string.Format("\n-UUID: {0}\n-Name: {1} {2}\n-Nr of properties: {3}\n-Last modified: {4}\n-Properties:\n{5}",
         Guid,
         FirstName,
         LastName,
         Properties.Count,
-        LastModified);
+        LastModified,
+        properties);
     }
     //public override string ToString()
     //{
