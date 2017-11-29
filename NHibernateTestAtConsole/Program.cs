@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using NHibernate;
-using NHibernate.Cfg;
 using NHibernate.Linq;
-using NHibernate.Tool.hbm2ddl;
 using NHibernateTestAtConsole.DAO;
 using NHibernateTestAtConsole.Entities;
 
@@ -16,8 +9,6 @@ namespace NHibernateTestAtConsole
 {
   class Program
   {
-    private const string DatabaseFilePath = @"database.db";
-
     static void Main(string[] args)
     {
       //List<User> Users = new List<User>();
@@ -59,13 +50,9 @@ namespace NHibernateTestAtConsole
               LastModified = DateTime.Now,
               Value = "Z"
             });
-            
+
             session.SaveOrUpdate(property);
             Console.WriteLine("Save property: " + property);
-
-
-
-
 
             transaction.Commit();
             Console.WriteLine("Transaction completed.");
@@ -100,46 +87,6 @@ namespace NHibernateTestAtConsole
         }
 
         Console.ReadKey();
-      }
-    }
-
-
-    private static ISessionFactory CreateSessionFactory(string databasePath)
-    {
-      return null;
-      /*
-      return Fluently.Configure()
-          .Database(SQLiteConfiguration.Standard
-              .UsingFile(databasePath)
-              .ShowSql)
-          .Mappings(m =>
-          m.FluentMappings.
-            AddFromAssembly(Assembly.GetExecutingAssembly()))
-
-        .ExposeConfiguration(BuildSchema)
-        .BuildSessionFactory();
-      */
-    }
-
-    private static void BuildSchema(Configuration config)
-    {
-      try
-      {
-        if (File.Exists(DatabaseFilePath))
-          File.Delete(DatabaseFilePath);
-
-        //new SchemaUpdate(config)
-        //  .Execute(true, true);
-
-        // this NHibernate tool takes a configuration (with mapping info in)
-        // and exports a database schema from it
-        new SchemaExport(config)
-          .Create(true, true);
-      }
-      catch (Exception e)
-      {
-        Console.WriteLine(e.Message);
-        Console.WriteLine(e.StackTrace);
       }
     }
   }
