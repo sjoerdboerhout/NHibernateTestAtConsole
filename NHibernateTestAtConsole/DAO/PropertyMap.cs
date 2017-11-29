@@ -32,26 +32,29 @@ namespace NHibernateTestAtConsole.DAO
 
       Set(x => x.Values, c =>
         {
-          c.Key(k =>
-          {
-            k.Column("property_id");
-          });
+          c.Key(k => { k.Column("property_id"); });
           c.Cascade(Cascade.Persist);
           c.Lazy(CollectionLazy.Lazy);
           c.OrderBy("LastModified desc");
-        }, r =>
-        {
-          r.OneToMany();
-        }
+        }, r => { r.OneToMany(); }
       );
 
-      Bag(x => x.Users, collectionMapping =>
-      {
-        collectionMapping.Table("user_properties");
-        collectionMapping.Cascade(Cascade.None);
-        collectionMapping.Key(k => k.Column("user_id"));
-      },
-                map => map.ManyToMany(p => p.Column("property_id")));
+      Bag(t => t.Users, bag =>
+        {
+          bag.Table("user_properties");
+          bag.Cascade(Cascade.None);
+          bag.Lazy(CollectionLazy.NoLazy);
+          bag.Key(k => k.Column("user_id"));
+        },
+        t => t.ManyToMany(c => { c.Column("property_id"); }));
+
+      //Bag(x => x.Users, collectionMapping =>
+      //{
+      //  collectionMapping.Table("user_properties");
+      //  collectionMapping.Cascade(Cascade.None);
+      //  collectionMapping.Key(k => k.Column("user_id"));
+      //},
+      //          map => map.ManyToMany(p => p.Column("property_id")));
     }
   }
 }

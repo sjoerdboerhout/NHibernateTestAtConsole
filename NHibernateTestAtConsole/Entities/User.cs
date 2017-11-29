@@ -16,7 +16,7 @@ namespace NHibernateTestAtConsole.Entities
 
     public virtual DateTime LastModified { get; set; }
 
-    public virtual List<Property> Properties { get; set; } = new List<Property>();
+    public virtual IList<Property> Properties { get; set; } = new List<Property>();
 
     public virtual Property AddProperty(Property property)
     {

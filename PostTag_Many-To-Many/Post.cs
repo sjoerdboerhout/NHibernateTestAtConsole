@@ -11,15 +11,14 @@ namespace PostTag_Many_To_Many
 
     public override string ToString()
     {
-
       string tags = "";
       foreach (var tag in Tags)
       {
-        tags += "-- " + tag + "\n";
+        tags += "-- " + tag.Name + "\n";
       }
       tags = tags.Trim();
 
-      return string.Format("\n-UUID: {0}\n-Name: {1}\n-Nr of tags: {2}\n-Tags: {3}\n",
+      return string.Format("POST: UUID: {0}, Name: {1}, Nr of tags: {2}, Tags:\n{3}",
         Id,
         Name,
         Tags.Count,
@@ -42,15 +41,13 @@ namespace PostTag_Many_To_Many
       Property(x => x.Name);
 
       Bag(t => t.Tags, bag =>
-      {
-        bag.Table("tags_posts");
-        bag.Cascade(Cascade.None);
-        bag.Key(k => k.Column("post_id"));
-      },
-      t => t.ManyToMany(c =>
-      {
-        c.Column("tag_id");
-      }));
+        {
+          bag.Table("tags_posts");
+          bag.Cascade(Cascade.None);
+          bag.Lazy(CollectionLazy.NoLazy);
+          bag.Key(k => k.Column("post_id"));
+        },
+        t => t.ManyToMany(c => { c.Column("tag_id"); }));
     }
   }
 }

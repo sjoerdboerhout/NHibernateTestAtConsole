@@ -52,23 +52,22 @@ namespace PostTag_Many_To_Many
 
           using (var transaction = session.BeginTransaction())
           {
+            var tags = (from tag in session.Query<Tag>()
+                        select tag)
+              .OrderBy(x => x.Name).ToList();
+            foreach (var tag in tags)
+            {
+              Console.WriteLine("Tag: {0}\n", tag);
+            }
+            
             var posts = (from post in session.Query<Post>()
                          select post)
               .OrderBy(x => x.Id).ToList();
 
             foreach (var post in posts)
             {
-              Console.WriteLine("Post: {0}", post);
+              Console.WriteLine("Post: {0}\n", post);
             }
-
-            var tags = (from tag in session.Query<Tag>()
-                              select tag)
-              .OrderBy(x => x.Name).ToList();
-            foreach (var tag in tags)
-            {
-              Console.WriteLine("Tag: {0}", tag);
-            }
-
           }
         }
       }

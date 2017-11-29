@@ -29,13 +29,22 @@ namespace NHibernateTestAtConsole.DAO
 
       Property(x => x.LastModified);
 
-      Bag(x => x.Properties, collectionMapping =>
+      Bag(t => t.Properties, bag =>
         {
-          collectionMapping.Table("user_properties");
-          collectionMapping.Cascade(Cascade.None);
-          collectionMapping.Key(k => k.Column("property_id"));
+          bag.Table("user_properties");
+          bag.Cascade(Cascade.None);
+          bag.Lazy(CollectionLazy.NoLazy);
+          bag.Key(k => k.Column("property_id"));
         },
-        map => map.ManyToMany(p => p.Column("user_id")));
+        t => t.ManyToMany(c => { c.Column("user_id"); }));
+
+      //Bag(x => x.Properties, collectionMapping =>
+      //  {
+      //    collectionMapping.Table("user_properties");
+      //    collectionMapping.Cascade(Cascade.None);
+      //    collectionMapping.Key(k => k.Column("property_id"));
+      //  },
+      //  map => map.ManyToMany(p => p.Column("user_id")));
 
       //Bag(x => x.Properties,
       //  m =>
