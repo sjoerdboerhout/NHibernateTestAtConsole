@@ -16,14 +16,19 @@ namespace NHibernateTestAtConsole.DAO
         map.Column("guid");
       });
 
-      Property(x => x.Parent);
+      //Property(x => x.Parent);
+      ManyToOne(x => x.Parent, map =>
+      {
+        map.Column("parent_id");
+        map.NotNullable(true);
+        map.Cascade(Cascade.None);
+      });
 
       Property(x => x.LastModified);
 
       ManyToOne(x => x.Property, map =>
       {
         map.Column("property_id");
-        //map.Class(typeof(Property));
         map.NotNullable(true);
         map.Cascade(Cascade.None);
       });

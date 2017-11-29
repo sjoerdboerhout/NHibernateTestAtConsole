@@ -38,14 +38,14 @@ namespace NHibernateTestAtConsole
             };
             property.AddValue(new PropertyValue()
             {
-              Parent = property.Guid,
+              Parent = user,
               Property = property,
               LastModified = DateTime.Now.AddMinutes(-1),
               Value = "Y"
             });
             property.AddValue(new PropertyValue()
             {
-              Parent = property.Guid,
+              Parent = user,
               Property = property,
               LastModified = DateTime.Now,
               Value = "Z"
