@@ -1,7 +1,7 @@
-﻿using NHibernate.Driver;
+﻿using NHibernate;
+using NHibernate.Driver;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
-using NHibernate.Type;
 using NHibernateTestAtConsole.Entities;
 
 namespace NHibernateTestAtConsole.DAO
@@ -40,6 +40,13 @@ namespace NHibernateTestAtConsole.DAO
         //m.NotNullable(true);
       });
 
+      Version(x => x.Revision, x =>
+      {        
+        x.Type(NHibernateUtil.Int32);
+      });
+
+      OptimisticLock(OptimisticLockMode.Version);
+     
       //Version(x => x.Revision, m =>
       //{
       //  m.Generated(VersionGeneration.Always);

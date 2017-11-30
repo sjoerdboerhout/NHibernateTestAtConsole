@@ -19,7 +19,7 @@ namespace NHibernateTestAtConsole.Entities
 
     public virtual DateTime LastModified { get; set; }
 
-    //public virtual int Revision { get; set; }
+    public virtual int Revision { get; set; }
 
     public override string ToString()
     {
