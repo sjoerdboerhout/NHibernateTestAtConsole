@@ -37,28 +37,6 @@ namespace NHibernateTestAtConsole.DAO
           bag.Key(k => k.Column("user_id"));
         },
         t => t.ManyToMany(c => { c.Column("property_id"); }));
-
-      //Bag(x => x.Properties, collectionMapping =>
-      //  {
-      //    collectionMapping.Table("user_properties");
-      //    collectionMapping.Cascade(Cascade.None);
-      //    collectionMapping.Key(k => k.Column("property_id"));
-      //  },
-      //  map => map.ManyToMany(p => p.Column("user_id")));
-
-      //Bag(x => x.Properties,
-      //  m =>
-      //  {
-      //    m.Table("user_properties");
-      //    m.Key(k => k.Column("property_id"));
-      //    m.Inverse(true);
-      //    m.Cascade(Cascade.None);
-      //  },
-      //  col => col.ManyToMany(m =>
-      //  {
-      //    m.Columns(x => x.Name("user_id"));
-      //    m.Lazy(LazyRelation.Proxy);
-      //  }));
     }
   }
 }

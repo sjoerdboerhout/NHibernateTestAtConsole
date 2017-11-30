@@ -42,21 +42,5 @@ namespace NHibernateTestAtConsole.Entities
         LastModified,
         properties);
     }
-    //public override string ToString()
-    //{
-    //  return string.Format("\n-UUID: {0}\n-Last modified: {1}\n-Nr of properties: {2}\n",
-    //                        Guid,
-    //                        LastModified,
-    //                        Properties.Count);
-    //}
-
-    //public override string ToString()
-    //{
-    //  return string.Format("\n-UUID: {0}\n-Name: {1} {2}\n-Last modified: {3}\n",
-    //    Guid,
-    //    FirstName,
-    //    LastName,
-    //    LastModified);
-    //}
   }
 }
