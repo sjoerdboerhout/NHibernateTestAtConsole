@@ -13,25 +13,29 @@ namespace NHibernateTestAtConsole.DAO
   {
     public PropertyMap()
     {
-      DynamicUpdate(true);
       Table("property");
 
-      Id(x => x.Guid, m =>
+      Id(x => x.Guid, map =>
       {
-        m.Generator(Generators.GuidComb);
-        m.Column("guid");
+        map.Generator(Generators.GuidComb);
+        map.Column("guid");
       });
 
-      Property(x => x.Name, m =>
+      Property(x => x.Name, map =>
       {
-        m.Length(SqlClientDriver.MaxSizeForLengthLimitedString + 1);
-        m.Column("name");
-        //m.NotNullable(true);
+        map.Length(SqlClientDriver.MaxSizeForLengthLimitedString + 1);
+        map.Column("name");
       });
 
-      Property(x => x.LastModified);
+      Property(x => x.LastModified, map =>
+      {
+        map.Column("lastmodified");
+      });
 
-      Property(x => x.Value);
+      Property(x => x.Value, map =>
+      {
+        map.Column("current_value");
+      });
 
       Set(x => x.Values, c =>
         {
@@ -50,14 +54,6 @@ namespace NHibernateTestAtConsole.DAO
           bag.Key(k => k.Column("property_id"));
         },
         t => t.ManyToMany(c => { c.Column("user_id"); }));
-
-      //Bag(x => x.Users, collectionMapping =>
-      //{
-      //  collectionMapping.Table("user_properties");
-      //  collectionMapping.Cascade(Cascade.None);
-      //  collectionMapping.Key(k => k.Column("user_id"));
-      //},
-      //          map => map.ManyToMany(p => p.Column("property_id")));
     }
   }
 }

@@ -28,9 +28,15 @@ namespace NHibernateTestAtConsole.DAO
         //m.NotNullable(true);
       });
 
-      Property(x => x.LastName);
+      Property(x => x.LastName, map =>
+      {
+        map.Column("lastname");
+      });
 
-      Property(x => x.LastModified);
+      Property(x => x.LastModified, map =>
+      {
+        map.Column("lastmodified");
+      });
 
       Bag(t => t.Properties, bag =>
         {

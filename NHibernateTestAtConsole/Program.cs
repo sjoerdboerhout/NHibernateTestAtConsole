@@ -26,8 +26,7 @@ namespace NHibernateTestAtConsole
             User user = new User()
             {
               FirstName = "Sjoerd",
-              LastName = "Boerhout",
-              LastModified = DateTime.Now
+              LastName = "Boerhout"
             };
             session.SaveOrUpdate(user);
             _user = user;
@@ -35,19 +34,16 @@ namespace NHibernateTestAtConsole
 
             Property property = new Property()
             {
-              Name = "X",
-              LastModified = DateTime.Now
+              Name = "X"
             };
             property.AddValue(new PropertyValue()
             {
               Parent = _user,
-              LastModified = DateTime.Now.AddMinutes(-1),
               Value = "Y"
             });
             property.AddValue(new PropertyValue()
             {
               Parent = _user,
-              LastModified = DateTime.Now,
               Value = "Z"
             });
 
@@ -73,13 +69,13 @@ namespace NHibernateTestAtConsole
               property.AddValue(new PropertyValue()
               {
                 Parent = _user,
-                LastModified = DateTime.Now,
                 Value = "ZZ"
               });
 
               session.SaveOrUpdate(property);
 
-              property.Values.First().Value = "test";
+              property.Value = "test";
+              //property.Values.First().Value = "test";
               session.SaveOrUpdate(property);
 
               Console.WriteLine("Update property: " + property);
@@ -88,7 +84,6 @@ namespace NHibernateTestAtConsole
             transaction.Commit();
             Console.WriteLine("Transaction completed.");
           }
-
 
 
           using (var transaction = session.BeginTransaction())

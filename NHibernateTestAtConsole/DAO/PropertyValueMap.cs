@@ -10,6 +10,10 @@ namespace NHibernateTestAtConsole.DAO
   {
     public PropertyValueMap()
     {
+      Table("property_value");
+
+      OptimisticLock(OptimisticLockMode.Version);
+
       Id(x => x.Guid, map =>
       {
         map.Generator(Generators.GuidComb);
@@ -24,7 +28,10 @@ namespace NHibernateTestAtConsole.DAO
         map.Cascade(Cascade.None);
       });
 
-      Property(x => x.LastModified);
+      Property(x => x.LastModified, map =>
+      {
+        map.Column("lastmodified");
+      });
 
       ManyToOne(x => x.Property, map =>
       {
@@ -40,26 +47,11 @@ namespace NHibernateTestAtConsole.DAO
         //m.NotNullable(true);
       });
 
-      Version(x => x.Revision, x =>
+      Version(x => x.Revision, map =>
       {        
-        x.Type(NHibernateUtil.Int32);
+        map.Type(NHibernateUtil.Int32);
+        map.Column("revision");
       });
-
-      OptimisticLock(OptimisticLockMode.Version);
-     
-      //Version(x => x.Revision, m =>
-      //{
-      //  m.Generated(VersionGeneration.Always);
-      //  m.Insert();
-      //});
-      /*
-      ;
-      => x.Version)
-        .Nullable()
-        .CustomSqlType("timestamp")
-        .Generated.Always()
-        ;
-      */
     }
   }
 }

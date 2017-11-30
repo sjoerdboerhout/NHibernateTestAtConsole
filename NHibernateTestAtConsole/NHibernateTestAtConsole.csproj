@@ -65,11 +65,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\PropertyEventListener.cs" />
     <Compile Include="DAO\NHibernateHelper.cs" />
     <Compile Include="DAO\NHibernateUserRepository.cs" />
     <Compile Include="DAO\PropertyValueMap.cs" />
     <Compile Include="DAO\PropertyMap.cs" />
     <Compile Include="DAO\UserMap.cs" />
+    <Compile Include="Entities\IPropertyValue.cs" />
     <Compile Include="Entities\PropertyValue.cs" />
     <Compile Include="Entities\Property.cs" />
     <Compile Include="Entities\User.cs" />

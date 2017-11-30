@@ -7,7 +7,7 @@ using NHibernate.UserTypes;
 
 namespace NHibernateTestAtConsole.Entities
 {
-  public class PropertyValue
+  public class PropertyValue : IPropertyValue
   {
     public virtual Guid Guid { get; protected set; }
 
@@ -17,7 +17,7 @@ namespace NHibernateTestAtConsole.Entities
 
     public virtual string Value { get; set; }
 
-    public virtual DateTime LastModified { get; set; }
+    public virtual DateTime LastModified { get; set; } = DateTime.Now.AddDays(-1);
 
     public virtual int Revision { get; set; }
 

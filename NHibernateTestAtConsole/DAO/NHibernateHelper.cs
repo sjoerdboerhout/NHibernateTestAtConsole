@@ -4,6 +4,7 @@ using System.Reflection;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
+using NHibernate.Event;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Tool.hbm2ddl;
 
@@ -14,6 +15,7 @@ namespace NHibernateTestAtConsole.DAO
     private static ISessionFactory _sessionFactory;
     private static Configuration _configuration;
     private static HbmMapping _mapping;
+    private static PropertyEventListener _propertyEventListener = new PropertyEventListener();
 
     public static ISession OpenSession()
     {
@@ -45,7 +47,11 @@ namespace NHibernateTestAtConsole.DAO
         {
           //Create the nhibernate configuration
           _configuration = CreateConfiguration();
+
+          _configuration.SetListener(ListenerType.PreInsert, _propertyEventListener);
+          _configuration.SetListener(ListenerType.PreUpdate, _propertyEventListener);
         }
+
         return _configuration;
       }
     }

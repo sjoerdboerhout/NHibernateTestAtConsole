@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace NHibernateTestAtConsole.Entities
 {
-  public class Property
+  public class Property : IPropertyValue
   {
     private string _currVal = "";
 
@@ -12,7 +12,7 @@ namespace NHibernateTestAtConsole.Entities
 
     public virtual string Name { get; set; }
 
-    public virtual DateTime LastModified { get; set; }
+    public virtual DateTime LastModified { get; set; } = DateTime.Now.AddDays(-1);
 
     public virtual ICollection<PropertyValue> Values { get; set; } = new List<PropertyValue>();
 
@@ -23,8 +23,8 @@ namespace NHibernateTestAtConsole.Entities
         //if (_currVal.Length > 0)
         //  return _currVal;
 
-        if (Values?.Count > 0)
-          return Values.OrderByDescending(s => s.LastModified).First().Value;
+        if (Values.Any())
+          return Values.OrderByDescending(s => s.LastModified).ThenBy(t => t.Revision).First().Value;
 
         return "";
       }
@@ -36,12 +36,13 @@ namespace NHibernateTestAtConsole.Entities
         //  // Gives null pointer if this is the first value!
         //  Parent = Values.OrderByDescending(s => s.LastModified).First().Parent,
         //  Property = this,
-        //  LastModified = DateTime.Now,
         //  Value = value
         //});
         // Update to add a new propertyvalue if this is the first value
-        if(Values.OrderByDescending(s => s.LastModified).Any())
-          Values.OrderByDescending(s => s.LastModified).First().Value = value;
+        if (Values.Any())
+        {
+          Values.OrderByDescending(s => s.LastModified).ThenBy(t => t.Revision).First().Value = value;
+        }
       }
     }
 
@@ -57,7 +58,7 @@ namespace NHibernateTestAtConsole.Entities
     public override string ToString()
     {
       string values = "";
-      foreach (var value in Values)
+      foreach (var value in Values.OrderByDescending(s => s.LastModified).ThenBy(t => t.Revision))
       {
         values += "-- " + value + "\n";
       }
