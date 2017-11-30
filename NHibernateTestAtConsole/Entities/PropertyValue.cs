@@ -19,6 +19,8 @@ namespace NHibernateTestAtConsole.Entities
 
     public virtual DateTime LastModified { get; set; }
 
+    //public virtual int Revision { get; set; }
+
     public override string ToString()
     {
       return string.Format("PropertyValue: UUID: {0}, Property uuid: {1}, Parent: {2}, Value: {3}, Last modified: {4}",

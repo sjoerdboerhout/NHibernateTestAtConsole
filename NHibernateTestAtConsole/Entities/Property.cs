@@ -20,8 +20,8 @@ namespace NHibernateTestAtConsole.Entities
     {
       get
       {
-        if (_currVal.Length > 0)
-          return _currVal;
+        //if (_currVal.Length > 0)
+        //  return _currVal;
 
         if (Values?.Count > 0)
           return Values.OrderByDescending(s => s.LastModified).First().Value;

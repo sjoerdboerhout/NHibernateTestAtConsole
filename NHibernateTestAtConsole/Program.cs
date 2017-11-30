@@ -12,6 +12,7 @@ namespace NHibernateTestAtConsole
     static void Main(string[] args)
     {
       //List<User> Users = new List<User>();
+      User _user;
 
       using (ISession session = NHibernateHelper.OpenSession())
       {
@@ -29,6 +30,7 @@ namespace NHibernateTestAtConsole
               LastModified = DateTime.Now
             };
             session.SaveOrUpdate(user);
+            _user = user;
             Console.WriteLine("Save user: " + user);
 
             Property property = new Property()
@@ -60,6 +62,31 @@ namespace NHibernateTestAtConsole
           }
 
           session.Flush();
+
+          using (ITransaction transaction = session.BeginTransaction())
+          {
+            Console.WriteLine("Ready to update a value!");
+
+            Property property = (from prop in session.Query<Property>()
+                              select prop)
+              .First(x => x.Name.Equals("X"));
+
+            property.AddValue(new PropertyValue()
+            {
+              Parent = _user,
+              Property = property,
+              LastModified = DateTime.Now,
+              Value = "ZZ"
+            });
+            
+            session.SaveOrUpdate(property);
+            Console.WriteLine("Update property: " + property);
+
+            transaction.Commit();
+            Console.WriteLine("Transaction completed.");
+          }
+
+
 
           using (var transaction = session.BeginTransaction())
           {

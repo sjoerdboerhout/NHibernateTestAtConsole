@@ -33,7 +33,6 @@ namespace NHibernateTestAtConsole.DAO
         map.Cascade(Cascade.None);
       });
 
-
       Property(x => x.Value, map =>
       {
         map.Length(SqlClientDriver.MaxSizeForLengthLimitedString + 1);
@@ -41,6 +40,19 @@ namespace NHibernateTestAtConsole.DAO
         //m.NotNullable(true);
       });
 
+      //Version(x => x.Revision, m =>
+      //{
+      //  m.Generated(VersionGeneration.Always);
+      //  m.Insert();
+      //});
+      /*
+      ;
+      => x.Version)
+        .Nullable()
+        .CustomSqlType("timestamp")
+        .Generated.Always()
+        ;
+      */
     }
   }
 }
