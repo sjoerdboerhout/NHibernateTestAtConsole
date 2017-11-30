@@ -40,15 +40,13 @@ namespace NHibernateTestAtConsole
             };
             property.AddValue(new PropertyValue()
             {
-              Parent = user,
-              Property = property,
+              Parent = _user,
               LastModified = DateTime.Now.AddMinutes(-1),
               Value = "Y"
             });
             property.AddValue(new PropertyValue()
             {
-              Parent = user,
-              Property = property,
+              Parent = _user,
               LastModified = DateTime.Now,
               Value = "Z"
             });
@@ -67,22 +65,25 @@ namespace NHibernateTestAtConsole
           {
             Console.WriteLine("Ready to update a value!");
 
-            Property property = (from prop in session.Query<Property>()
-                              select prop)
-              .First(x => x.Name.Equals("X"));
+            Property property = (from p in session.Query<Property>()
+                where p.Name == "X" select p).FirstOrDefault();
 
-            property.Value = "ZZ";
+            if (property != null)
+            {
+              property.AddValue(new PropertyValue()
+              {
+                Parent = _user,
+                LastModified = DateTime.Now,
+                Value = "ZZ"
+              });
 
-            //property.AddValue(new PropertyValue()
-            //{
-            //  Parent = _user,
-            //  Property = property,
-            //  LastModified = DateTime.Now,
-            //  Value = "ZZ"
-            //});
-            
-            session.SaveOrUpdate(property);
-            Console.WriteLine("Update property: " + property);
+              session.SaveOrUpdate(property);
+
+              property.Values.First().Value = "test";
+              session.SaveOrUpdate(property);
+
+              Console.WriteLine("Update property: " + property);
+            }
 
             transaction.Commit();
             Console.WriteLine("Transaction completed.");
@@ -94,7 +95,7 @@ namespace NHibernateTestAtConsole
           {
             var users = (from user in session.Query<User>()
                          select user)
-              .OrderByDescending(x => x.LastModified).ToList();
+              .OrderBy(x => x.LastModified).ToList();
 
             foreach (var user in users)
             {

@@ -47,6 +47,7 @@ namespace NHibernateTestAtConsole.Entities
 
     public virtual void AddValue(PropertyValue propertyValue)
     {
+      propertyValue.Property = this;
       Values?.Add(propertyValue);
     }
 
