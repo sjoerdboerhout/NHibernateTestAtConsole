@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using NHibernate;
 using NHibernate.Linq;
 using NHibernateTestAtConsole.DAO;
@@ -11,6 +12,7 @@ namespace NHibernateTestAtConsole
   {
     static void Main(string[] args)
     {
+     
       //List<User> Users = new List<User>();
       User _user;
 
@@ -63,6 +65,7 @@ namespace NHibernateTestAtConsole
 
             Property property = (from p in session.Query<Property>()
                 where p.Name == "X" select p).FirstOrDefault();
+            Thread.Sleep(1000);
 
             if (property != null)
             {
@@ -73,9 +76,11 @@ namespace NHibernateTestAtConsole
               });
 
               session.SaveOrUpdate(property);
+              Thread.Sleep(1000);
 
-              property.Value = "test";
-              //property.Values.First().Value = "test";
+              //update value must be in different transaction
+              //else no new audit entry is created
+              property.Values.First().Value = "test";
               session.SaveOrUpdate(property);
 
               Console.WriteLine("Update property: " + property);

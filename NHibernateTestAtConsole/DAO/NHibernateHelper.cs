@@ -7,6 +7,7 @@ using NHibernate.Cfg.MappingSchema;
 using NHibernate.Event;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Tool.hbm2ddl;
+using NHibernateTestAtConsole.Entities;
 
 namespace NHibernateTestAtConsole.DAO
 {
@@ -19,6 +20,7 @@ namespace NHibernateTestAtConsole.DAO
 
     public static ISession OpenSession()
     {
+      InitializeAudit();
       //Open and return the nhibernate session
       return SessionFactory.OpenSession();
     }
@@ -69,8 +71,20 @@ namespace NHibernateTestAtConsole.DAO
       }
     }
 
+    public static void InitializeAudit()
+    {
+      var enversConf = new NHibernate.Envers.Configuration.Fluent.FluentConfiguration();
+
+      enversConf.Audit<Property>();
+      enversConf.Audit<User>();
+      enversConf.Audit<PropertyValue>();
+
+      Configuration.IntegrateWithEnvers(enversConf);
+    }
+
     private static Configuration CreateConfiguration()
     {
+     
       var configuration = new Configuration();
 
       //Loads properties from hibernate.cfg.xml

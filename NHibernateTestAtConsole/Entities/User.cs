@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NHibernate.Cfg;
+using NHibernateTestAtConsole.Model;
 
 namespace NHibernateTestAtConsole.Entities
 {
-  public class User : IPropertyValue
+  public class User : Entity<int>,IPropertyValue
   {
     public virtual Guid Guid { get; set; }
 
@@ -14,7 +16,7 @@ namespace NHibernateTestAtConsole.Entities
 
     public virtual String LastName { get; set; }
 
-    public virtual DateTime LastModified { get; set; } = DateTime.Now.AddDays(-1);
+    public virtual DateTime LastModified { get; set; } = DateTime.Now;
 
     public virtual IList<Property> Properties { get; set; } = new List<Property>();
 

@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NHibernate.UserTypes;
+using NHibernate.Envers.Configuration.Attributes;
+using NHibernateTestAtConsole.Model;
 
 namespace NHibernateTestAtConsole.Entities
 {
-  public class PropertyValue : IPropertyValue
+  public class PropertyValue : Entity<int>,IPropertyValue
   {
     public virtual Guid Guid { get; protected set; }
 
@@ -17,7 +14,7 @@ namespace NHibernateTestAtConsole.Entities
 
     public virtual string Value { get; set; }
 
-    public virtual DateTime LastModified { get; set; } = DateTime.Now.AddDays(-1);
+    public virtual DateTime LastModified { get; set; } = DateTime.Now;
 
     public virtual int Revision { get; set; }
 

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NHibernateTestAtConsole.Model;
 
 namespace NHibernateTestAtConsole.Entities
 {
-  public class Property : IPropertyValue
+  public class Property : Entity<int>,IPropertyValue
   {
     private string _currVal = "";
 
@@ -12,7 +13,7 @@ namespace NHibernateTestAtConsole.Entities
 
     public virtual string Name { get; set; }
 
-    public virtual DateTime LastModified { get; set; } = DateTime.Now.AddDays(-1);
+    public virtual DateTime LastModified { get; set; } = DateTime.Now;
 
     public virtual ICollection<PropertyValue> Values { get; set; } = new List<PropertyValue>();
 
