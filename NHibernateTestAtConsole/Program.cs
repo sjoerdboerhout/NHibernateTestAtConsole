@@ -71,13 +71,15 @@ namespace NHibernateTestAtConsole
                               select prop)
               .First(x => x.Name.Equals("X"));
 
-            property.AddValue(new PropertyValue()
-            {
-              Parent = _user,
-              Property = property,
-              LastModified = DateTime.Now,
-              Value = "ZZ"
-            });
+            property.Value = "ZZ";
+
+            //property.AddValue(new PropertyValue()
+            //{
+            //  Parent = _user,
+            //  Property = property,
+            //  LastModified = DateTime.Now,
+            //  Value = "ZZ"
+            //});
             
             session.SaveOrUpdate(property);
             Console.WriteLine("Update property: " + property);
@@ -92,7 +94,7 @@ namespace NHibernateTestAtConsole
           {
             var users = (from user in session.Query<User>()
                          select user)
-              .OrderBy(x => x.LastModified).ToList();
+              .OrderByDescending(x => x.LastModified).ToList();
 
             foreach (var user in users)
             {

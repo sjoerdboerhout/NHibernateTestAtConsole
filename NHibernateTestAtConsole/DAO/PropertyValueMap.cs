@@ -1,4 +1,5 @@
-﻿using NHibernate.Driver;
+﻿using NHibernate;
+using NHibernate.Driver;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
 using NHibernate.Type;
@@ -10,6 +11,12 @@ namespace NHibernateTestAtConsole.DAO
   {
     public PropertyValueMap()
     {
+      Table("property_value");
+
+      DynamicUpdate(true);
+      OptimisticLock(OptimisticLockMode.Dirty);
+      //SelectBeforeUpdate(true);
+
       Id(x => x.Guid, map =>
       {
         map.Generator(Generators.GuidComb);
@@ -40,19 +47,15 @@ namespace NHibernateTestAtConsole.DAO
         //m.NotNullable(true);
       });
 
-      //Version(x => x.Revision, m =>
-      //{
-      //  m.Generated(VersionGeneration.Always);
-      //  m.Insert();
-      //});
-      /*
-      ;
-      => x.Version)
-        .Nullable()
-        .CustomSqlType("timestamp")
-        .Generated.Always()
-        ;
-      */
+      Version(x => x.Revision, map =>
+      {
+        map.Column("revision");
+        map.Generated(VersionGeneration.Always);
+        map.UnsavedValue(0);
+        map.Insert(true);
+        map.Type(NHibernateUtil.Int32);
+        //map.Access(Accessor.Property);
+      });
     }
   }
 }

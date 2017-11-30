@@ -10,6 +10,9 @@ namespace NHibernateTestAtConsole.DAO
   {
     public UserMap()
     {
+      DynamicUpdate(true);
+      Table("user");
+
       Id(x => x.Guid, m =>
       {
         //m.Type(IIdentifierType);

@@ -29,7 +29,20 @@ namespace NHibernateTestAtConsole.Entities
         return "";
       }
 
-      set { _currVal = value; }
+      set
+      {
+        //Values.Add(new PropertyValue()
+        //{
+        //  // Gives null pointer if this is the first value!
+        //  Parent = Values.OrderByDescending(s => s.LastModified).First().Parent,
+        //  Property = this,
+        //  LastModified = DateTime.Now,
+        //  Value = value
+        //});
+        // Update to add a new propertyvalue if this is the first value
+        if(Values.OrderByDescending(s => s.LastModified).Any())
+          Values.OrderByDescending(s => s.LastModified).First().Value = value;
+      }
     }
 
     public virtual void AddValue(PropertyValue propertyValue)

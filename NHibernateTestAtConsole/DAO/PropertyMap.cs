@@ -13,6 +13,9 @@ namespace NHibernateTestAtConsole.DAO
   {
     public PropertyMap()
     {
+      DynamicUpdate(true);
+      Table("property");
+
       Id(x => x.Guid, m =>
       {
         m.Generator(Generators.GuidComb);
